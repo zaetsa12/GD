@@ -1,0 +1,74 @@
+{% load static %}
+<header>
+    <div class="container-fluid">
+
+        <div class="header_part_1">
+        </div>
+
+        <div class="header_part_2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-5 logo">
+                        <a href="index.html">
+                            <img src="{% static 'img/Logo.png' %}" alt="Logo">
+                            <span>GREAT <br> DECISION</span>
+                        </a>
+                    </div>
+                    <div class="col-7 contact">
+                        <div>
+                            <img src="{% static 'img/phone.png' %}" alt="Phone">
+                            <p>Tel + 380 111 8011</p>
+                        </div>
+                        <ul class="navbar-nav ml-auto row">
+                            {% if user.is_authenticated %}
+                            <li {% if 'dashboard' in request.path %} class="nav-item active" {% else %} class="nav-item"
+                                {% endif %}>
+
+                                <a href="{% url 'dashboard' %}">Welcome {{ user.username }}</a>
+                            </li>
+
+                            <li class="nav-item mr3">
+                                <a href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                            </li>
+                            <form action="{% url 'logout' %}" id='logout' method="POST">
+                                {% csrf_token  %}
+                                <input type="hidden" />
+                            </form>
+                            {% else %}
+                            <li {% if 'login' in request.path %} class="nav-item active" {% else %} class="nav-item"
+                                {% endif %}>
+                                <a href="{% url 'login' %}">Login</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'register' %}">Register</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="header_part_3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12  menu">
+                        <a {% if "/" == request.path %} class="active" {% endif %} href="{% url 'index' %}">Головна</a>
+                        <a {% if "about" == request.path %} class="active" {% endif %} href="{% url 'about' %}">Про
+                            нас</a>
+                        <a href="guarantee.html">Гарантії</a>
+                        <a {% if "estatelist" == request.path %} class="active" {% endif %}
+                            href="{% url 'estatelist' %}">Що
+                            пропонуємо</a>
+                        <a href="{% url 'estatelist' %}">Замовити</a>
+                        <a href="">Ціни</a>
+                        <a href="">Відгуки</a>
+                        <a href="discounts.html">Знижки</a>
+                        <a href="">Контакти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
